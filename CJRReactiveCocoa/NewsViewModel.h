@@ -16,6 +16,6 @@
 
 - (NSArray *)dataSourceWithEvents:(NSArray *)events;
 
-- (RACSignal *)requestRemoteDataSignalWithPage:(NSUInteger)page;
+//- (RACSignal *)requestRemoteDataSignalWithPage:(NSUInteger)page;
 
 @end

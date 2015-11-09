@@ -66,6 +66,7 @@
         
         return [RACDisposable disposableWithBlock:^{
             NSLog(@"PostRequest 信号销毁");
+            [subscriber sendCompleted];
         }];
             
     }];

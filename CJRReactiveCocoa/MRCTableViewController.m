@@ -42,7 +42,7 @@
 }
 
 - (UIEdgeInsets)contentInset {
-    return UIEdgeInsetsMake(64, 0, 0, 0);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)viewDidLoad {
@@ -53,6 +53,7 @@
     [self.tableView registerClass:[MRCTableViewCellStyleValue1 class] forCellReuseIdentifier:@"MRCTableViewCellStyleValue1"];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
+
     
     if (self.viewModel.shouldPullToRefresh) {
         
@@ -60,47 +61,75 @@
         
         
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-             @strongify(self)
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
+            @strongify(self)
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
             self.viewModel.page = 1;
             
-            [[[self.viewModel requestDataWithPage:self.viewModel.page] deliverOn:RACScheduler.mainThreadScheduler ] subscribeNext:^(id x) {
+            [[self.viewModel.requestRemoteDataCommand execute:@(self.viewModel.page)] subscribeNext:^(id x) {
                 
-            }completed:^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }error:^(NSError *error) {
+                
                 [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
+                [self.tableView.mj_footer endRefreshing];
                 
+            } completed:^{
+                [self refreshComplete];
             }];
+            
             
         }];
         
         self.tableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
             @strongify(self)
             
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
             self.viewModel.page ++;
             
-            [[[self.viewModel requestDataWithPage:self.viewModel.page] deliverOn:RACScheduler.mainThreadScheduler ]subscribeNext:^(id x) {
+            [[self.viewModel.requestRemoteDataCommand execute:@(self.viewModel.page)] subscribeNext:^(id x) {
                 
-            }completed:^{
+            }error:^(NSError *error) {
                 
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
-                [self.tableView reloadData];
+                
+            } completed:^{
+                [self refreshComplete];
                 
             }];
+            
             
         }];
         
         [self.tableView.mj_header beginRefreshing];
     }else{
+        
         //普通网络请求
         
+        [[self.viewModel.requestRemoteDataCommand execute:@(self.viewModel.page)] subscribeNext:^(id x) {
+            
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
+            
+        }completed:^{
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            [self.tableView reloadData];
+            
+        }];
         
         
     }
-   
+    
+    
+    
+}
+
+- (void)refreshComplete{
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+    [self.tableView reloadData];
 }
 
 - (void)dealloc {
@@ -115,6 +144,7 @@
     [RACObserve(self.viewModel, dataSource).distinctUntilChanged.deliverOnMainThread subscribeNext:^(id x) {
         @strongify(self)
         NSLog(@"self.tableView:%@",self.tableView);
+        
         [self.tableView reloadData];
     }];
     
@@ -167,7 +197,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [self.viewModel.didSelectCommand execute:indexPath];
+    [self.viewModel.didSelectCommand execute:indexPath];
 }
 
 

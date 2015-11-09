@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong, readwrite) RACCommand *didClickLinkCommand;
 
+
+
 @end
 
 @implementation NewsViewModel
@@ -65,6 +67,44 @@
 //    RAC(self, events) = [self.requestRemoteDataCommand
     
 //    [self requestDataWithPage:1];
+    
+    self.didSelectCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSIndexPath *indexPath) {
+        
+        NewsItemVIewModel *viewModel = self.dataSource[indexPath.section][indexPath.row];
+        
+        //alloc init viewmodel 然后new一个viewcontroller push过去
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"抬头" message:viewModel.event.title delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
+//        [alert show];
+        NSLog(@"summ:%@",viewModel.event.summary);
+        
+        return [RACSignal empty];
+    }];
+    
+}
+
+- (RACSignal *)requestRemoteDataSignalWithPage:(NSUInteger)page {
+    RACSignal *signal = [self.appManager requestNewsWithSpecialID:1 andPageIndex:page Model:NewsModel.class];
+    @weakify(self);
+    [signal  subscribeNext:^(NewsModel *newsModel) {
+        @strongify(self);
+        if (!newsModel || newsModel.count == 0) {
+            NSLog(@"request error");//转不了model，或者出了问题或者为空白
+            self.requestError = @"Empty";
+        }else{
+            //没问题，可以进行操作
+            self.events = newsModel.listArray;
+        }
+    }error:^(NSError *error) {
+        @strongify(self);
+        //网络访问失败
+        self.requestError = @"Error";
+    } completed:^{
+//        self.isRequestFinished = @(YES);
+    }];
+    
+    
+    return signal;
+    
 }
 
 - (RACSignal *)requestDataWithPage:(NSUInteger )page{
@@ -120,29 +160,6 @@
 }
 
 
-- (RACSignal *)requestRemoteDataSignalWithPage:(NSUInteger)page {
-    
-    return [RACSignal empty];
-    
-//    RACSignal *fetchSignal = [RACSignal empty];
-//    
-//    APPManager *appManager = [[APPManager alloc]init];
-//    
-//    fetchSignal = [appManager requestNewsWithSpecialID:self.page andPageIndex:page Model:NewsModel.class];
-//    NSLog(@"");
-//    [[[fetchSignal doNext:^(NewsModel *model) {
-//        if (self.page == 1) {
-//            //这里最好是开启一个异步保存本地
-//            
-//        }
-//    }]map:^(NewsModel *model) {
-//        self.events = model.listArray;
-//        return model.listArray;
-//    }]subscribeNext:^(NSArray *modelArray) {
-//        self.events = modelArray;
-//    }];
-//    return fetchSignal;
-}
 
 - (NSArray *)dataSourceWithEvents:(NSArray *)eventst{
     if (eventst.count == 0) {

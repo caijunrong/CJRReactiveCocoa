@@ -10,7 +10,11 @@
 #import "NewsItemVIewModel.h"
 
 @interface NewsTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *TitleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageVIew;
 
 + (CGFloat)heightWithViewModel:(NewsItemVIewModel *)viewModel;
+
+- (void)bindViewModel:(NewsItemVIewModel *)viewModel;
 
 @end

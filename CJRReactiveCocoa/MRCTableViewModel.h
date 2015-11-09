@@ -20,6 +20,11 @@
 
 @property (nonatomic, assign) BOOL shouldPullToRefresh;
 
+@property (nonatomic, strong, readonly) RACCommand *requestRemoteDataCommand;
+
+@property (nonatomic, strong) RACCommand *didSelectCommand;
+
+//不使用raccommand
 - (RACSignal *)requestDataWithPage:(NSUInteger )page;
 
 @end

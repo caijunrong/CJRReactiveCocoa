@@ -12,6 +12,7 @@
 #import "NewsSubListModel.h"
 #import "NewsViewModel.h"
 #import "NewsTableViewCell.h"
+#import "NewsItemVIewModel.h"
 
 @interface MyNewsViewController ()
 
@@ -25,12 +26,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.tableView setContentInset:self.contentInset];
     [self.tableView registerNib:[UINib nibWithNibName:@"NewsTableViewCell" bundle:nil] forCellReuseIdentifier:@"NewsTableViewCell"];
+    
+    
     
     @weakify(self)
     RAC(self.viewModel, dataSource) = [[RACObserve(self.viewModel, events)
                                         map:^(NSArray *events) {
+                                            
                                             @strongify(self)
                                             return [self.viewModel dataSourceWithEvents:events];
                                         }]
@@ -47,22 +51,46 @@
                                                return viewModels;
                                            }
                                            
+                                           
                                        }];
 
+    [[RACObserve(self.viewModel, requestError) deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(NSString *value) {
+        if ([value isEqualToString:@"Empty"] && self.viewModel.page == 1) {
+            //刷新为空，@“什么都没有”
+            
+            
+        }else if([value isEqualToString:@"Empty"] && self.viewModel.page != 1){
+            //加载更多为空
+            
+        }else if([value isEqualToString:@"Error"]){
+            //网络加载失败,提示
+//            [self.progressHUB showMessage:@"网络加载失败，请检查网络连接" duration:1.2f];
+            NSLog(@"网络加载失败");
+        }
+        
+        
+    }];
+    
     
 }
 
+-(void)bindViewModel{
+    [super bindViewModel];
+    
+    
+}
+
+
 - (UIEdgeInsets)contentInset {
-    return UIEdgeInsetsMake(64, 0, 0, 0);
+    return UIEdgeInsetsMake(64, 0, 64, 0);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath {
     return [tableView dequeueReusableCellWithIdentifier:@"NewsTableViewCell" forIndexPath:indexPath];
 }
 
-- (void)configureCell:(NewsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(NewsTableViewCell *)viewModel {
-//    [cell bindViewModel:viewModel];
-    [cell setBackgroundColor:[UIColor yellowColor]];
+- (void)configureCell:(NewsTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(NewsItemVIewModel *)viewModel {
+    [cell bindViewModel:viewModel];
     
 }
 

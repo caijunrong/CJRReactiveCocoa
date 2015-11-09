@@ -11,6 +11,7 @@
 
 @interface MRCViewController : UIViewController<MRCViewProtocol>
 
+
 - (void)configTabBarHiddenWhenPush;
 
 @end

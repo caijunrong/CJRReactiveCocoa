@@ -11,8 +11,11 @@
 
 @interface NewsItemVIewModel : NSObject
 
+@property (nonatomic, strong, readonly) NewsSubListModel *event;
+
 @property (nonatomic, assign) CGFloat height;
 
 - (instancetype)initWithEvent:(NewsSubListModel *)event;
+
 
 @end

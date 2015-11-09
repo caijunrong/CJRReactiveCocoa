@@ -214,6 +214,7 @@
 		60547A931BF07F0200B2C575 /* CJRReactiveCocoa */ = {
 			isa = PBXGroup;
 			children = (
+				60BBD0761BF0C9400020F947 /* Other */,
 				60547ACF1BF0893200B2C575 /* Image */,
 				60547ACE1BF0892B00B2C575 /* Class */,
 				60547A971BF07F0200B2C575 /* AppDelegate.h */,
@@ -412,6 +413,13 @@
 				60547B4D1BF08D4A00B2C575 /* MRCTableViewController.m */,
 			);
 			name = Base;
+			sourceTree = "<group>";
+		};
+		60BBD0761BF0C9400020F947 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 		6BA331D09BD13485EE7A0C84 /* Pods */ = {
