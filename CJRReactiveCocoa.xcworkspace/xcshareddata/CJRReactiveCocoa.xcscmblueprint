@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "38A8A959219B84E1FE1D03C0D5301813A06BC47E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "38A8A959219B84E1FE1D03C0D5301813A06BC47E" : 0,
+    "73E2D198D60899CFA7FAB181C2623301156A22DD" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E5C78E0E-E048-4DA1-BB9D-726929A82EAC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "38A8A959219B84E1FE1D03C0D5301813A06BC47E" : "CJRReactiveCocoa\/",
+    "73E2D198D60899CFA7FAB181C2623301156A22DD" : "ReactiveCocoaProject\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CJRReactiveCocoa",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CJRReactiveCocoa.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/caijunrong\/CJRReactiveCocoa.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "38A8A959219B84E1FE1D03C0D5301813A06BC47E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/caijunrong\/ReactiveCocoaProject.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "73E2D198D60899CFA7FAB181C2623301156A22DD"
+    }
+  ]
+}
