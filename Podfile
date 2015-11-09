@@ -7,7 +7,7 @@ pod "Masonry"
 pod "FMDB"
 pod "MBProgressHUD"
 pod "ReactiveCocoa"
-pod “Mantle”
+pod "Mantle"
 pod "LBBlurredImage"
 pod "TSMessages"
 pod "AFOnoResponseSerializer"

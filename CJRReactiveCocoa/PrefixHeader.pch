@@ -1,0 +1,27 @@
+//
+//  PrefixHeader.pch
+//  CJRReactiveCocoa
+//
+//  Created by biyabi on 15/11/9.
+//  Copyright © 2015年 biyabi. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import <objc/runtime.h>
+
+/*固定常量define*/
+#import "CJRConstant.h"
+
+#import <ReactiveCocoa.h>
+#import <RACEXTScope.h>
+#import "AppDelegate.h"
+
+#import <MJRefresh.h>
+#import <MBProgressHUD.h>
+
+#endif /* PrefixHeader_pch */

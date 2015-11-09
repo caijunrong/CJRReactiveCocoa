@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "10C0A96975D6847A6AC0AF87"
+               BlueprintIdentifier = "1872C3810044C19185261C93"
                BuildableName = "libOcticonsIOS.a"
                BlueprintName = "OcticonsIOS"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MRCTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    MRCTabBarController *tabBarHomeController =[[MRCTabBarController alloc]init];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = tabBarHomeController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
