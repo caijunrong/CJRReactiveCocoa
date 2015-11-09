@@ -63,7 +63,8 @@
              @strongify(self)
             [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
             self.viewModel.page = 1;
-            [[self.viewModel requestDataWithPage:self.viewModel.page] subscribeNext:^(id x) {
+            
+            [[[self.viewModel requestDataWithPage:self.viewModel.page] deliverOn:RACScheduler.mainThreadScheduler ] subscribeNext:^(id x) {
                 
             }completed:^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -80,7 +81,7 @@
             [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = @"Loading...";
             self.viewModel.page ++;
             
-            [[self.viewModel requestDataWithPage:self.viewModel.page] subscribeNext:^(id x) {
+            [[[self.viewModel requestDataWithPage:self.viewModel.page] deliverOn:RACScheduler.mainThreadScheduler ]subscribeNext:^(id x) {
                 
             }completed:^{
                 
